@@ -2,6 +2,10 @@
 
 A modern, SEO-optimized, mobile-friendly web application to read, search, and study the Quran online in Bangla and English. Built with [Remix](https://remix.run/), React, and Tailwind CSS.
 
+## 🌐 Live Demo
+
+👉 [al-quran](https://al-quran-snowy.vercel.app/)
+
 ## ✨ Features
 
 - 📖 **Complete Quran**: Surah list, surah details, and verse-by-verse reading

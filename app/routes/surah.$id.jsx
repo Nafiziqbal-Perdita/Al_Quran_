@@ -25,7 +25,7 @@ export const meta = ({ params, data }) => {
     { property: "og:description", content: description },
     { property: "og:image", content: ogImage },
     { property: "og:type", content: "article" },
-    { property: "og:url", content: `https://yourdomain.com/surah/${params.id}` },
+    { property: "og:url", content: `https://al-quran-snowy.vercel.app/${params.id}` },
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:title", content: `Surah ${surahName} | সূরা ${surahNameBn}` },
     { name: "twitter:description", content: description },

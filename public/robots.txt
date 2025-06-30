@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://al-quran-snowy.vercel.app/sitemap.xml
