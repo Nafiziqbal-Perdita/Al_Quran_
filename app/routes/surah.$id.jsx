@@ -15,7 +15,7 @@ export const meta = ({ params, data }) => {
   const surahName = data?.english_name || data?.name || params.id || "Surah";
   const surahNameBn = data?.bangla_name || data?.name_bn || "সূরা";
   const description = `Read Surah ${surahName} (${surahNameBn}) with Bangla and English translation, tafsir, audio, and more. সূরা ${surahNameBn} অর্থ, বাংলা অনুবাদ, তাফসীর, অডিও।`;
-  const keywords = `surah details, surah ${surahName}, সূরা ${surahNameBn}, quran surah details, bangla quran, surah al-fatihah, সূরা আল ফাতিহা, quran translation bangla, surah tafsir, surah audio, surah recitation, surah search tool, কুরআন সূরার তালিকা, সূরা বিশদ, বাংলা তাফসীর, কুরআন অনলাইন, কুরআন অফলাইনে, বাংলা অনুবাদসহ কুরআন, আল কুরআন বাংলা, পূর্ণ কুরআন অনুবাদ, কুরআন রিডার, কুরআন অডিও, কুরআন উচ্চারণ, কুরআন তেলাওয়াত, বাংলা কুরআন ওয়েব অ্যাপ, কুরআন ওয়েবসাইট, সূরা তালিকা, সূরা নাম, বাংলা সূরা অর্থ, সূরার অনুবাদ, ইসলামিক কুরআন অ্যাপ, সেরা কুরআন অ্যাপ, ফুল কুরআন বাংলা, কুরআন ওয়েব অ্যাপ প্রশ্নোত্তর`;
+  const keywords = `surah details, surah ${surahName}, সূরা ${surahNameBn}, quran surah details, bangla quran, surah al-fatihah, সূরা আল ফাতিহা, quran translation bangla, surah tafsir, surah audio, surah recitation, surah search tool, কুরআন সূরার তালিকা, সূরা বিশদ, বাংলা তাফসীর, কুরআন অনলাইন, কুরআন অফলাইনে, বাংলা অনুবাদসহ কুরআন, আল কুরআন বাংলা, পূর্ণ কুরআন অনুবাদ, কুরআন রিডার, কুরআন অডিও, কুরআন উচ্চারণ, কুরআন তেলাওয়াত, বাংলা কুরআন ওয়েব অ্যাপ, কুরআন ওয়েবসাইট, সূরা তালিকা, সূরা নাম, বাংলা সূরা অর্থ, সূরার অনুবাদ, ইসলামিক কুরআন অ্যাপ, সেরা কুরআন অ্যাপ, ফুল কুরআন বাংলা, কুরআন ওয়েব অ্যাপ প্রশ্নোত্তর, al quran bangla, bangla quran bangla, quran in bangla language, al quran with bangla translation full, bangla quran sharif, quran sharif, bangla quran translation full, quran shareef bangla, al quran bangla tafsir, bangla quran tafseer, bangla quran tafsir, bangla quran tafsir book, bangla quran online, online quran bangla, al quran bangla tarjuma, al quran bangla online, al quran bangla torjoma, bangla quran tarjuma, tafhimul quran online bangla, quran audio mp3 offline, full quran reading offline, offline quran audio app, quran audio offline, read quran offline, quranic apps, online quran, bangla quran online, al quran bangla online, download quran apps, quran sharif online, quran teacher online, learn quran at home, quran al quran, islam in islam, holy quran, holy al quran, quran all surah, al quran, al quan apps, al quran app download, al quran apk, bangla quran apk, quran tilawat, namaz time, fajr namaz time`;
   const ogImage = "/logo-light.png";
   return [
     { title: `Surah ${surahName} | সূরা ${surahNameBn} অর্থ, বাংলা অনুবাদ – Quran App` },
@@ -52,6 +52,10 @@ export default function SurahDetail() {
 
   return (
     <div className="min-h-screen flex flex-col items-center py-6 px-2" style={{ backgroundColor: '#EAE8E1' }}>
+      {/* Back Button */}
+      <div className="w-full max-w-5xl mx-auto mb-4">
+        <Link to="/" className="inline-block px-4 py-2 rounded bg-[#FA6F51] text-white font-semibold shadow hover:bg-[#DA4B2C] transition mb-4">&larr; Back to Home</Link>
+      </div>
       {/* Header */}
       <header className="w-full max-w-5xl mx-auto mb-8">
         <div className="flex flex-col items-center justify-center gap-2">
@@ -102,6 +106,12 @@ export default function SurahDetail() {
           </section>
         ))}
       </main>
+      <div className="" >
+        
+        <h2 className="text-xl  font-semibold mb-4 text-center text-[#FA6F51]">
+          Surah Details: {surahNameEnglish} ({surahNameArabic})
+        </h2>
+      </div>
     </div>
   );
 }
