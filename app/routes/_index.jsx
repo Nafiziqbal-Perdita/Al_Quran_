@@ -1,14 +1,28 @@
-import { useLoaderData, useNavigate } from "@remix-run/react";
+import { Link, useLoaderData, useNavigate } from "@remix-run/react";
 import useFetch from "../../hook/useFetch";
 import { surahListFunction } from "../../api/fetch";
 
 // Loader for initial SSR data
+// export async function loader() {
+//   const data = await surahListFunction();
+//   return data; // Return plain data, not json()
+// }
+
 export async function loader() {
   const data = await surahListFunction();
-  return data; // Return plain data, not json()
+  return {
+    data,
+    headers: {
+      "X-Frame-Options": "SAMEORIGIN",
+    },
+  };
 }
 
+
+
+
 export const meta = () => [
+
   { title: "Bangla Quran Online | সূরা তালিকা ও তাফসীর" },
   { name: "description", content: "Surah list with Bangla and English translation, tafsir, audio, and more. কুরআন সূরার তালিকা, অনুবাদ, তাফসীর, অডিও, এবং আরও অনেক কিছু।" },
   { 
@@ -20,8 +34,8 @@ export const meta = () => [
       tafhimul quran online bangla, quran audio mp3 offline, full quran reading offline, offline quran audio app, quran audio offline, read quran offline, quranic apps, online quran, bangla quran online, al quran bangla online, download quran apps, quran sharif online, quran teacher online, learn quran at home, quran al quran, islam in islam, holy quran, holy al quran, quran all surah, al quran, al quan apps, al quran app download, al quran apk, bangla quran apk, quran tilawat, namaz time, fajr namaz time
     `.replace(/\s+/g, ' ').trim()
   }
-];
-
+]
+  
 export default function SurahList() {
   // Get initial data from loader
   const initialSurahList = useLoaderData();
@@ -53,8 +67,11 @@ export default function SurahList() {
               <li>
                 <a href="/" className="text-black hover:text-[#FA6F51] font-medium transition">Home</a>
               </li>
+              <li>
+                <Link to="/faqs" className="text-black hover:text-[#FA6F51] font-medium transition">Faqs</Link>
+              </li>
               {/* Add more links here */}
-            </ul>
+            </ul>   
           </nav>
         </div>
       </header>

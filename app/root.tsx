@@ -33,8 +33,13 @@ export const meta = () => [
       al quran bangla, bangla quran bangla, quran in bangla language, al quran with bangla translation full, bangla quran sharif, quran sharif, bangla quran translation full, quran shareef bangla, al quran bangla tafsir, bangla quran tafseer, bangla quran tafsir, bangla quran tafsir book, bangla quran online, online quran bangla, al quran bangla tarjuma, al quran bangla online, al quran bangla torjoma, bangla quran tarjuma,
       tafhimul quran online bangla, quran audio mp3 offline, full quran reading offline, offline quran audio app, quran audio offline, read quran offline, quranic apps, online quran, bangla quran online, al quran bangla online, download quran apps, quran sharif online, quran teacher online, learn quran at home, quran al quran, islam in islam, holy quran, holy al quran, quran all surah, al quran, al quan apps, al quran app download, al quran apk, bangla quran apk, quran tilawat, namaz time, fajr namaz time
     `.replace(/\s+/g, ' ').trim()
-  }
+  },
+  { httpEquiv: "Content-Security-Policy", content: "default-src 'self'; connect-src 'self' https://cdn.jsdelivr.net; script-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com" },
+  { httpEquiv: "Referrer-Policy", content: "strict-origin-when-cross-origin" },
+
+  { httpEquiv: "X-Content-Type-Options", content: "nosniff" }
 ];
+
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -52,15 +57,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <ScrollRestoration />
         <Scripts />
       </body>
-      <script dangerouslySetInnerHTML={{__html:`
-        document.addEventListener('DOMContentLoaded',function(){
-          document.head.querySelectorAll('meta[http-equiv],meta[name]').forEach(function(meta){meta.remove()});
-          var csp=document.createElement('meta');csp.httpEquiv='Content-Security-Policy';csp.content="default-src 'self'; connect-src 'self' https://cdn.jsdelivr.net; script-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com";document.head.appendChild(csp);
-          var ref=document.createElement('meta');ref.httpEquiv='Referrer-Policy';ref.content='strict-origin-when-cross-origin';document.head.appendChild(ref);
-          var xfo=document.createElement('meta');xfo.httpEquiv='X-Frame-Options';xfo.content='SAMEORIGIN';document.head.appendChild(xfo);
-          var xct=document.createElement('meta');xct.httpEquiv='X-Content-Type-Options';xct.content='nosniff';document.head.appendChild(xct);
-        });
-      `}} />
+      
     </html>
   );
 }

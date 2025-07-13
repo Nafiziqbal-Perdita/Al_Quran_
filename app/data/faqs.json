@@ -1,0 +1,126 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the Quran app and where can I download it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our Quran app is a mobile application for reading, listening, and understanding the Qur’an. It’s available on the Google Play Store with full features like audio recitation, translations, and bookmarks."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I read the full Quran on the app?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, the app contains all 114 Surahs (chapters) of the Quran in Arabic, with verse-by-verse translations and transliterations."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the app include audio recitations for each Surah?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely! You can listen to multiple reciters for each Surah, with offline support so you can play audio without an internet connection."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is transliteration and why is it included?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Transliteration shows Arabic verses written in Latin script (e.g. “Al‑Fātiḥah”) to help with pronunciation, especially for non‑Arabic speakers."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are translations available in different languages?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, the app includes multiple translations such as English, Urdu, Bengali, and more. You can switch languages in settings."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I search for a specific Surah or Ayah in the app?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, you can search by Surah number, Ayah number, or keywords in Arabic and translation. This helps you find verses quickly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a feature for bookmarking verses?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, you can bookmark your favorite Ayahs and return to them easily. Bookmarks are stored locally for offline access."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the app support night mode for reading?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, there is a night/dark mode that improves readability and reduces eye strain during nighttime reading."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I download Surahs for offline reading?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, you can download selected Surahs or the entire Quran for offline reading, audio, and search."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What Surahs are included and how are they organized?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The app includes all 114 Surahs in their canonical order, organized by Juz’. Each Surah displays its name, transliteration, translation, and verse count."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the app include Tajweed rules or color-coded text?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, we offer optional Tajweed (recitation) highlighting to help users pronounce verses correctly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there an audio-only playback or Quran player mode?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, the app includes an audio player mode where you can play continuous recitation for a Surah or Juz’."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I switch between different reciters in the app?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Go to Settings → Audio → Reciters, and select your preferred reciter. You can switch on the fly during playback."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a daily verse reminder or notification?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, you can enable daily Ayah reminders through notifications in Settings → Notifications."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use the app on tablets and large screens?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, the app is optimized for both mobile and tablet screens. It supports landscape orientation for comfortable reading."
+      }
+    }
+  ]
+}
