@@ -24,6 +24,54 @@ export async function loader() {
   });
 }
 
+export function meta({ data }) {
+  const siteName = "Bangla Quran";
+  const description =
+    "Find answers to common questions about the Bangla Quran app, including features like Surah search, audio recitation, translations, and offline reading.";
+  const pageUrl = "https://al-quran-snowy.vercel.app/faqs";
+  const imageUrl = "https://al-quran-snowy.vercel.app/logo-light.png";
+
+  const faqKeywords = data.mainEntity
+    .map((faq) => faq.name.split(" "))
+    .flat()
+    .slice(0, 15)
+    .join(", ");
+
+  return [
+    { title: `FAQs | ${siteName} - Your Questions Answered` },
+    { name: "description", content: description },
+    {
+      name: "keywords",
+      content: `Bangla Quran, Quran FAQs, Quran questions, বাংলা কুরআন, তাফসীর, Surah list, Quran audio, offline Quran, ${faqKeywords}`,
+    },
+    { tagName: "link", rel: "canonical", href: pageUrl },
+    { property: "og:title", content: `FAQs | ${siteName}` },
+    { property: "og:description", content: description },
+    { property: "og:image", content: imageUrl },
+    { property: "og:url", content: pageUrl },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: siteName },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:title", content: `FAQs | ${siteName}` },
+    { name: "twitter:description", content: description },
+    { name: "twitter:image", content: imageUrl },
+    {
+      "script:ld+json": {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: data.mainEntity.map((faq) => ({
+          "@type": "Question",
+          name: faq.name,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: faq.acceptedAnswer.text,
+          },
+        })),
+      },
+    },
+  ];
+}
+
 export default function FaqsPage() {
   const faqData = useLoaderData();
   const [openIndex, setOpenIndex] = useState(null);
@@ -101,12 +149,13 @@ export default function FaqsPage() {
             </div>
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              Frequently Asked Questions
+              Frequently Asked Questions (FAQs)
             </h1>
 
             <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
-              Find answers to common questions about using Al Quran app, reading
-              features, and more.
+              Explore answers to common questions about the Bangla Quran app,
+              its features, and how to make the most of your Quran study
+              experience.
             </p>
           </div>
         </div>
