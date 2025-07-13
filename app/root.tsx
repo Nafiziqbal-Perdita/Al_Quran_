@@ -5,9 +5,10 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import type { LinksFunction, MetaFunction } from "@remix-run/node";
+import type { LinksFunction } from "@remix-run/node";
 
 import "./tailwind.css";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -15,31 +16,36 @@ export const links: LinksFunction = () => [
     rel: "preconnect",
     href: "https://fonts.gstatic.com",
     crossOrigin: "anonymous",
-  },  
+  },
   {
     rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap",
   },
 ];
 
 export const meta = () => [
   { charset: "utf-8" },
   { title: "Bangla Quran Online | সূরা তালিকা ও তাফসীর" },
-  { name: "description", content: "Read the complete Quran online in Bangla and English. সূরা তালিকা, অনুবাদ, তাফসীর, অডিও, এবং আরও অনেক কিছু। Best Quran app 2025." },
-  { 
-    name: "keywords", 
+  {
+    name: "description",
+    content:
+      "Read the complete Quran online in Bangla and English. সূরা তালিকা, অনুবাদ, তাফসীর, অডিও, এবং আরও অনেক কিছু। Best Quran app 2025.",
+  },
+  {
+    name: "keywords",
     content: `
-      quran app, bangla quran, quran surah list, surah details, quran reading online, quran translation english, quran translation bangla, quran verses, quran tafsir, quran audio, quran recitation, surah al-fatihah, surah list quran app, quran study tool, online quran reader, offline quran app, al quran with bangla translation, complete quran in bangla, best quran app 2025, free quran reading app, quran by word, quran word by word translation, quran memorization tool, quran learning app, quran for students, islamic quran app, surah search tool, quran app with tafsir, quran app responsive design, modern quran webapp, quran mobile webapp, quran dark mode, quran UI design, quran app features, quran app seo friendly, বাংলা কুরআন, কুরআন বাংলা অনুবাদ, বাংলা কুরআন পড়া, কুরআন সূরার তালিকা, সূরা বিশদ, বাংলা তাফসীর, কুরআন অনলাইন, কুরআন অফলাইনে, বাংলা অনুবাদসহ কুরআন, আল কুরআন বাংলা, পূর্ণ কুরআন অনুবাদ, কুরআন রিডার, কুরআন অডিও, কুরআন উচ্চারণ, কুরআন তেলাওয়াত, বাংলা কুরআন ওয়েব অ্যাপ, কুরআন ওয়েবসাইট, কুরআন ওয়েব অ্যাপ ডেভেলপমেন্ট, সূরা আল ফাতিহা অনুবাদ, সূরা তালিকা, সূরা নাম, বাংলা সূরা অর্থ, সূরার অনুবাদ, ইসলামিক কুরআন অ্যাপ, সেরা কুরআন অ্যাপ, ফুল কুরআন বাংলা, কুরআন ওয়েব অ্যাপ প্রশ্নোত্তর,
+      quran app, bangla quran, quran surah list, surah details, quran reading online, quran translation english, quran translation bangla, quran verses, quran tafsir, quran audio, quran recitation, surah al-fatihah, surah list quran app, quran study tool, online quran reader, offline quran app, al quran with bangla translation, complete quran in bangla, best quran app 2025, free quran reading app, quran by word, quran word by word translation, quran memorization tool, quran learning app, quran for students, islamic quran app, surah search tool, quran app with tafsir, quran app responsive design, modern quran webapp, quran mobile webapp, quran dark mode, quran UI design, quran app features, quran app seo friendly, বাংলা কুরআন, কুরআন বাংলা অনুবাদ, বাংলা কুরআন পড়া, কুরআন সূরার তালিকা, সূরা বিশদ, বাংলা তাফসীর, কুরআন অনলাইন, কুরআন অফলাইনে, বাংলা অনুবাদসহ কুরআন, আল কুরআন বাংলা, পূর্ণ কুরআন অনুবাদ, কুরআন রিডার, কুরআন অডিও, কুরআন উচ��চারণ, কুরআন তেলাওয়াত, বাংলা কুরআন ওয়েব অ্যাপ, কুরআন ওয়েবসাইট, কুরআন ওয়েব অ্যাপ ডেভেলপমেন্ট, সূরা আল ফাতিহা অনুবাদ, সূরা তালিকা, সূরা নাম, বাংলা সূরা অর্থ, সূরার অনুবাদ, ইসলামিক কুরআন অ্যাপ, সেরা কুরআন অ্যাপ, ফ��ল কুরআন বাংলা, কুরআন ওয়েব অ্যাপ প্রশ্নোত্তর,
       al quran bangla, bangla quran bangla, quran in bangla language, al quran with bangla translation full, bangla quran sharif, quran sharif, bangla quran translation full, quran shareef bangla, al quran bangla tafsir, bangla quran tafseer, bangla quran tafsir, bangla quran tafsir book, bangla quran online, online quran bangla, al quran bangla tarjuma, al quran bangla online, al quran bangla torjoma, bangla quran tarjuma,
       tafhimul quran online bangla, quran audio mp3 offline, full quran reading offline, offline quran audio app, quran audio offline, read quran offline, quranic apps, online quran, bangla quran online, al quran bangla online, download quran apps, quran sharif online, quran teacher online, learn quran at home, quran al quran, islam in islam, holy quran, holy al quran, quran all surah, al quran, al quan apps, al quran app download, al quran apk, bangla quran apk, quran tilawat, namaz time, fajr namaz time
-    `.replace(/\s+/g, ' ').trim()
+    `
+      .replace(/\s+/g, " ")
+      .trim(),
   },
-  { httpEquiv: "Content-Security-Policy", content: "default-src 'self'; connect-src 'self' https://cdn.jsdelivr.net; script-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com" },
+
   { httpEquiv: "Referrer-Policy", content: "strict-origin-when-cross-origin" },
 
-  { httpEquiv: "X-Content-Type-Options", content: "nosniff" }
+  { httpEquiv: "X-Content-Type-Options", content: "nosniff" },
 ];
-
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -50,14 +56,37 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <link rel="canonical" href="https://al-quran-snowy.vercel.app/" />
         <Meta />
         <Links />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                const savedTheme = localStorage.getItem('theme');
+                const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                const theme = savedTheme || systemTheme;
+                document.documentElement.classList.add(theme);
+              } catch (e) {
+                document.documentElement.classList.add('light');
+              }
+            `,
+          }}
+        />
       </head>
-      <body>
-        <h2 style={{position:'absolute',left:'-9999px',height:'1px',width:'1px',overflow:'hidden'}}>Bangla Quran Online - সূরা তালিকা ও তাফসীর</h2>
-        {children}
+      <body className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+        <h2
+          style={{
+            position: "absolute",
+            left: "-9999px",
+            height: "1px",
+            width: "1px",
+            overflow: "hidden",
+          }}
+        >
+          Bangla Quran Online - সূরা তালিকা ও তাফসীর
+        </h2>
+        <ThemeProvider>{children}</ThemeProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
-      
     </html>
   );
 }
