@@ -1,3 +1,12 @@
+export function links(args) {
+  const id = args && args.params && args.params.id ? args.params.id : '';
+  return [
+    {
+      rel: "canonical",
+      href: `https://al-quran-snowy.vercel.app/surah/${id}`,
+    },
+  ];
+}
 import { Link, useLoaderData, useSearchParams } from "@remix-run/react";
 import useFetch from "../../hook/useFetch.jsx";
 import { surahDetailFunction } from "../../api/fetch";

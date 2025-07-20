@@ -35,6 +35,15 @@ export const meta = () => [
   },
 ];
 
+export function links() {
+  return [
+    {
+      rel: "canonical",
+      href: "https://al-quran-snowy.vercel.app/",
+    },
+  ];
+}
+
 export default function SurahList() {
   // Get initial data from loader
   const loaderData = useLoaderData();
