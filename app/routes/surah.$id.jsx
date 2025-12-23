@@ -8,16 +8,27 @@ export function links(args) {
   ];
 }
 import { Link, useLoaderData, useSearchParams } from "@remix-run/react";
+import { useParams } from "@remix-run/react";
 import useFetch from "../../hook/useFetch.jsx";
 import { surahDetailFunction } from "../../api/fetch";
 import { ThemeToggle } from "../components/ThemeToggle";
 import { ArrowLeft, BookOpen, Play, Star, Copy, Share } from "lucide-react";
 
 // Loader for initial SSR data
-export async function loader({ request }) {
+export async function loader({ request, params }) {
   const url = new URL(request.url);
-  const link = url.searchParams.get("link");
-  if (!link) return null;
+  const linkFromQuery = url.searchParams.get("link");
+  const id = params?.id;
+  const link =
+    linkFromQuery ||
+    (id
+      ? `https://cdn.jsdelivr.net/npm/quran-json@3.1.2/dist/chapters/bn/${id}.json`
+      : null);
+
+  if (!link) {
+    throw new Response("Not Found", { status: 404 });
+  }
+
   const data = await surahDetailFunction(link);
   return data; // Return plain data, not json()
 }
@@ -27,7 +38,7 @@ export const meta = ({ params, data }) => {
   const surahNameBn = data?.bangla_name || data?.name_bn || "সূরা";
   const description = `Read Surah ${surahName} (${surahNameBn}) with Bangla and English translation, tafsir, audio, and more. সূরা ${surahNameBn} অর্থ, বাংলা অনুবাদ, তাফসীর, অডিও।`;
   const keywords = `surah details, surah ${surahName}, সূরা ${surahNameBn}, quran surah details, bangla quran, surah al-fatihah, সূরা আল ফাতিহা, quran translation bangla, surah tafsir, surah audio, surah recitation, surah search tool, কুরআন সূরার তালিকা, সূরা বিশদ, বাংলা তাফসীর, কুরআন অনলাইন, কুরআন অফলাইনে, বাংলা অনুবাদসহ কুরআন, আল কুরআন বাংলা, পূর্ণ কুরআন অনুবাদ, কুরআন রিডার, কুরআন অডিও, কুরআন উচ্চারণ, কুরআন তেলাওয়াত, বাংলা ক��রআন ওয়েব অ্যাপ, কুরআন ওয়েবসাইট, সূরা তালিকা, সূরা নাম, বাংলা সূরা অর্থ, সূরার অনুবাদ, ইসলামিক কুরআন অ্যাপ, সেরা কুরআন অ্যাপ, ফুল কুরআন বাংলা, কুরআন ওয়েব অ্যাপ প্রশ্নোত্তর, al quran bangla, bangla quran bangla, quran in bangla language, al quran with bangla translation full, bangla quran sharif, quran sharif, bangla quran translation full, quran shareef bangla, al quran bangla tafsir, bangla quran tafseer, bangla quran tafsir, bangla quran tafsir book, bangla quran online, online quran bangla, al quran bangla tarjuma, al quran bangla online, al quran bangla torjoma, bangla quran tarjuma, tafhimul quran online bangla, quran audio mp3 offline, full quran reading offline, offline quran audio app, quran audio offline, read quran offline, quranic apps, online quran, bangla quran online, al quran bangla online, download quran apps, quran sharif online, quran teacher online, learn quran at home, quran al quran, islam in islam, holy quran, holy al quran, quran all surah, al quran, al quan apps, al quran app download, al quran apk, bangla quran apk, quran tilawat, namaz time, fajr namaz time`;
-  const ogImage = "/logo-light.png";
+  const ogImage = "/favicon.ico";
   return [
     {
       title: `Surah ${surahName} | সূরা ${surahNameBn} অর্থ, বাংলা অনুবাদ – Quran App`,
@@ -43,7 +54,7 @@ export const meta = ({ params, data }) => {
     { property: "og:type", content: "article" },
     {
       property: "og:url",
-      content: `https://al-quran-snowy.vercel.app/${params.id}`,
+      content: `https://al-quran-snowy.vercel.app/surah/${params.id}`,
     },
     { name: "twitter:card", content: "summary_large_image" },
     {
@@ -57,14 +68,28 @@ export const meta = ({ params, data }) => {
 
 export default function SurahDetail() {
   const [searchParams] = useSearchParams();
-  const link = searchParams.get("link");
+  const linkFromQuery = searchParams.get("link");
+  const { id } = useParams();
+  const resolvedLink =
+    linkFromQuery ||
+    (id
+      ? `https://cdn.jsdelivr.net/npm/quran-json@3.1.2/dist/chapters/bn/${id}.json`
+      : null);
   const loadData = useLoaderData();
   // Pass a function to useFetch, not a promise
   const {
     data: surahDetail,
     error,
     loading,
-  } = useFetch(() => surahDetailFunction(link), { initialData: loadData });
+  } = useFetch(
+    () => {
+      if (!resolvedLink) {
+        throw new Error("Surah link is required");
+      }
+      return surahDetailFunction(resolvedLink);
+    },
+    { initialData: loadData }
+  );
 
   // Placeholder for Surah info
   const surahNameArabic =

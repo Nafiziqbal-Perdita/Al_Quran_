@@ -3,6 +3,7 @@ import useFetch from "../../hook/useFetch";
 import { surahListFunction } from "../../api/fetch";
 import { ThemeToggle } from "../components/ThemeToggle";
 import { BookOpen, Search, Star, ChevronRight } from "lucide-react";
+import { getPlayStoreUrl } from "../constants/marketing";
 
 // Loader for initial SSR data
 export async function loader() {
@@ -58,6 +59,12 @@ export default function SurahList() {
 
   const navigate = useNavigate();
 
+  const playStoreUrl = getPlayStoreUrl({
+    utm_source: "website",
+    utm_medium: "cta",
+    utm_campaign: "install",
+  });
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
       {/* Header */}
@@ -90,6 +97,14 @@ export default function SurahList() {
               className="text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-medium transition-colors"
             >
               Home
+            </a>
+            <a
+              href={playStoreUrl}
+              className="text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-medium transition-colors"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Get the App
             </a>
             <Link
               to="/faqs"
@@ -131,18 +146,25 @@ export default function SurahList() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
               <a
-                href="#surahs"
+                href={playStoreUrl}
+                rel="noopener noreferrer"
+                target="_blank"
                 className="group inline-flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-blue-600 text-white px-8 py-4 rounded-full font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
               >
                 <BookOpen className="w-5 h-5" />
-                Start Reading
+                Install App
                 <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
 
-              <button className="inline-flex items-center gap-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-8 py-4 rounded-full font-semibold shadow-lg hover:shadow-xl border border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600 transition-all duration-300">
+              <a
+                href={playStoreUrl}
+                rel="noopener noreferrer"
+                target="_blank"
+                className="inline-flex items-center gap-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-8 py-4 rounded-full font-semibold shadow-lg hover:shadow-xl border border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600 transition-all duration-300"
+              >
                 <Search className="w-5 h-5" />
-                Search Surahs
-              </button>
+                Open in App
+              </a>
             </div>
 
             {/* Features */}

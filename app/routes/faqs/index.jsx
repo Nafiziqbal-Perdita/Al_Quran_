@@ -80,7 +80,18 @@ export default function FaqsPage() {
             <div className="bg-gradient-to-r from-emerald-50 to-blue-50 dark:from-emerald-900/20 dark:to-blue-900/20 rounded-2xl p-8 border border-emerald-200 dark:border-emerald-700">
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Still have questions?</h3>
               <p className="text-gray-600 dark:text-gray-300 mb-6">Can&apos;t find the answer you&apos;re looking for? Please reach out to our support team.</p>
-              <button className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-blue-600 text-white px-8 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">Contact Support</button>
+              <a
+                href={getPlayStoreUrl({
+                  utm_source: "website",
+                  utm_medium: "cta",
+                  utm_campaign: "install",
+                })}
+                rel="noopener noreferrer"
+                target="_blank"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-blue-600 text-white px-8 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+              >
+                Get the App
+              </a>
             </div>
           </div>
         </div>
@@ -94,6 +105,7 @@ import path from "path";
 import fs from "fs/promises";
 import { useState } from "react";
 import { ThemeToggle } from "../../components/ThemeToggle";
+import { getPlayStoreUrl } from "../../constants/marketing";
 import {
   ArrowLeft,
   BookOpen,
@@ -119,7 +131,7 @@ export function meta({ data }) {
   const description =
     "Find answers to common questions about the Bangla Quran app, including features like Surah search, audio recitation, translations, and offline reading.";
   const pageUrl = "https://al-quran-snowy.vercel.app/faqs";
-  const imageUrl = "https://al-quran-snowy.vercel.app/logo-light.png";
+  const imageUrl = "https://al-quran-snowy.vercel.app/favicon.ico";
 
   const faqKeywords = data.mainEntity
     .map((faq) => faq.name.split(" "))
@@ -157,6 +169,15 @@ export function meta({ data }) {
           },
         })),
       },
+    },
+  ];
+}
+
+export function links() {
+  return [
+    {
+      rel: "canonical",
+      href: "https://al-quran-snowy.vercel.app/faqs",
     },
   ];
 }

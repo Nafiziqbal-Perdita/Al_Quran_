@@ -6,9 +6,11 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
+import { useCallback } from "react";
 
 import "./tailwind.css";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { getPlayStoreUrl } from "./constants/marketing";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -48,12 +50,31 @@ export const meta = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const handleGlobalClickCapture = useCallback(
+    (event: React.MouseEvent<HTMLBodyElement>) => {
+      // Requirement: redirect users to the Play Store link wherever they tap.
+      // Use click (not pointerdown) to avoid redirecting during scroll gestures.
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (typeof window === "undefined") return;
+
+      const url = getPlayStoreUrl({
+        utm_source: "website",
+        utm_medium: "tap",
+        utm_campaign: "install",
+      });
+
+      window.location.assign(url);
+    },
+    []
+  );
+
   return (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="canonical" href="https://al-quran-snowy.vercel.app/" />
         <Meta />
         <Links />
         <script
@@ -71,7 +92,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
           }}
         />
       </head>
-      <body className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+      <body
+        className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300"
+        onClickCapture={handleGlobalClickCapture}
+      >
         <h2
           style={{
             position: "absolute",
