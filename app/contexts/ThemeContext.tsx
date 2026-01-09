@@ -11,26 +11,7 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 function getInitialTheme(): Theme {
-  // Only access browser APIs if we're on the client
-  if (typeof window === "undefined") {
-    return "light"; // Default for SSR
-  }
-
-  try {
-    const savedTheme = localStorage.getItem("theme") as Theme | null;
-    if (savedTheme && (savedTheme === "light" || savedTheme === "dark")) {
-      return savedTheme;
-    }
-
-    const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-      .matches
-      ? "dark"
-      : "light";
-
-    return systemTheme;
-  } catch {
-    return "light"; // Fallback if anything goes wrong
-  }
+  return "light";
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
@@ -40,8 +21,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // This only runs on the client after hydration
     setIsHydrated(true);
-    const initialTheme = getInitialTheme();
-    setTheme(initialTheme);
+    setTheme(getInitialTheme());
   }, []);
 
   useEffect(() => {
@@ -50,15 +30,16 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
     try {
       document.documentElement.classList.remove("light", "dark");
-      document.documentElement.classList.add(theme);
-      localStorage.setItem("theme", theme);
+      document.documentElement.classList.add("light");
+      localStorage.setItem("theme", "light");
     } catch {
       // Silently fail if localStorage is not available
     }
   }, [theme, isHydrated]);
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+    // Light mode only (intentional)
+    setTheme("light");
   };
 
   return (

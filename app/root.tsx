@@ -7,6 +7,7 @@ import {
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
 import { useCallback } from "react";
+import { Analytics } from "@vercel/analytics/remix";
 
 import "./tailwind.css";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -21,7 +22,7 @@ export const links: LinksFunction = () => [
   },
   {
     rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap",
+    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Hind+Siliguri:wght@400;500;600;700&display=swap",
   },
 ];
 
@@ -81,10 +82,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                const savedTheme = localStorage.getItem('theme');
-                const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                const theme = savedTheme || systemTheme;
-                document.documentElement.classList.add(theme);
+                document.documentElement.classList.add('light');
               } catch (e) {
                 document.documentElement.classList.add('light');
               }
@@ -110,6 +108,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <ThemeProvider>{children}</ThemeProvider>
         <ScrollRestoration />
         <Scripts />
+        <Analytics />
       </body>
     </html>
   );

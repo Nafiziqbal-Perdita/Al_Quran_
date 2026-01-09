@@ -11,7 +11,6 @@ import { Link, useLoaderData, useSearchParams } from "@remix-run/react";
 import { useParams } from "@remix-run/react";
 import useFetch from "../../hook/useFetch.jsx";
 import { surahDetailFunction } from "../../api/fetch";
-import { ThemeToggle } from "../components/ThemeToggle";
 import { ArrowLeft, BookOpen, Play, Star, Copy, Share } from "lucide-react";
 
 // Loader for initial SSR data
@@ -98,36 +97,31 @@ export default function SurahDetail() {
   const bismillah = "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-emerald-50">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-700 shadow-sm">
+      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-lg border-b border-emerald-100 shadow-sm">
         <div className="max-w-7xl mx-auto flex items-center justify-between py-4 px-4 sm:px-6 lg:px-8">
           {/* Logo */}
           <div className="flex items-center gap-4">
             <Link
               to="/"
-              className="group inline-flex items-center gap-2 bg-emerald-50 dark:bg-emerald-900/20 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 px-4 py-2 rounded-full font-medium transition-all duration-300"
+              className="group inline-flex items-center gap-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 px-4 py-2 rounded-full font-medium transition-all duration-300"
             >
               <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
               Back to Home
             </Link>
 
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 to-blue-600 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-gradient-to-br from-emerald-600 to-emerald-500 rounded-lg flex items-center justify-center">
                 <BookOpen className="w-4 h-4 text-white" />
               </div>
               <div>
-                <span className="text-lg font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
+                <span className="text-lg font-bold bg-gradient-to-r from-emerald-700 to-emerald-500 bg-clip-text text-transparent">
                   Al Quran
                 </span>
               </div>
             </div>
           </div>
-
-          {/* Navigation */}
-          <nav className="flex items-center gap-4">
-            <ThemeToggle />
-          </nav>
         </div>
       </header>
 
@@ -188,7 +182,7 @@ export default function SurahDetail() {
       {surahDetail && (
         <>
           {/* Surah Header */}
-          <section className="relative py-12 bg-gradient-to-r from-emerald-600/10 to-blue-600/10 dark:from-emerald-400/5 dark:to-blue-400/5">
+          <section className="relative py-10 sm:py-12 bg-gradient-to-b from-emerald-600/10 via-white/60 to-emerald-600/5">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
               <div className="animate-fade-in">
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
@@ -199,19 +193,19 @@ export default function SurahDetail() {
                   {surahNameArabic}
                 </div>
 
-                <div className="text-2xl sm:text-3xl font-arabic text-gray-700 dark:text-gray-300 mb-8 leading-relaxed bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+                <div className="text-2xl sm:text-3xl font-arabic text-gray-800 mb-8 leading-relaxed bg-white/70 backdrop-blur-sm rounded-xl p-6 border border-emerald-100">
                   {bismillah}
                 </div>
 
                 <div className="flex flex-wrap justify-center gap-4 mb-8">
-                  <div className="bg-white dark:bg-gray-800 px-4 py-2 rounded-full border border-gray-200 dark:border-gray-700">
-                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                  <div className="bg-white px-4 py-2 rounded-full border border-emerald-100">
+                    <span className="text-sm text-gray-700 font-bangla">
                       {surahDetail.verses?.length || 0} Verses ·{" "}
                       {surahDetail.verses?.length || 0} আয়াত
                     </span>
                   </div>
-                  <div className="bg-emerald-50 dark:bg-emerald-900/20 px-4 py-2 rounded-full border border-emerald-200 dark:border-emerald-700">
-                    <span className="text-sm text-emerald-700 dark:text-emerald-300 font-medium">
+                  <div className="bg-emerald-50 px-4 py-2 rounded-full border border-emerald-200">
+                    <span className="text-sm text-emerald-800 font-medium">
                       Translation by T. Usmani
                     </span>
                   </div>
@@ -219,15 +213,15 @@ export default function SurahDetail() {
 
                 {/* Action buttons */}
                 <div className="flex flex-wrap justify-center gap-3">
-                  <button className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300">
+                  <button className="inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white px-6 py-3 rounded-full font-medium shadow-md hover:shadow-lg transition-all duration-300">
                     <Play className="w-4 h-4" />
                     Listen
                   </button>
-                  <button className="inline-flex items-center gap-2 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-full font-medium shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-300">
+                  <button className="inline-flex items-center gap-2 bg-white hover:bg-gray-50 text-gray-800 px-6 py-3 rounded-full font-medium shadow-md border border-emerald-100 transition-all duration-300">
                     <Share className="w-4 h-4" />
                     Share
                   </button>
-                  <button className="inline-flex items-center gap-2 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-full font-medium shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-300">
+                  <button className="inline-flex items-center gap-2 bg-white hover:bg-gray-50 text-gray-800 px-6 py-3 rounded-full font-medium shadow-md border border-emerald-100 transition-all duration-300">
                     <Star className="w-4 h-4" />
                     Bookmark
                   </button>

@@ -16,6 +16,13 @@ export default {
           "Segoe UI Symbol",
           "Noto Color Emoji",
         ],
+        bangla: [
+          "Hind Siliguri",
+          "Noto Sans Bengali",
+          "ui-sans-serif",
+          "system-ui",
+          "sans-serif",
+        ],
         arabic: [
           "Amiri",
           "Noto Sans Arabic",
