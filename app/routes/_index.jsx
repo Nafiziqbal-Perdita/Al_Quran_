@@ -1,4 +1,5 @@
 import { Link, useLoaderData, useNavigate } from "@remix-run/react";
+import { redirect } from "@remix-run/node";
 import useFetch from "../../hook/useFetch";
 import { surahListFunction } from "../../api/fetch";
 import { BookOpen, Search, Star, ChevronRight } from "lucide-react";
@@ -6,13 +7,13 @@ import { getPlayStoreUrl } from "../constants/marketing";
 
 // Loader for initial SSR data
 export async function loader() {
-  const data = await surahListFunction();
-  return {
-    data,
-    headers: {
-      "X-Frame-Options": "SAMEORIGIN",
-    },
-  };
+  const playStoreUrl = getPlayStoreUrl({
+    utm_source: "website",
+    utm_medium: "auto-redirect",
+    utm_campaign: "install",
+  });
+
+  throw redirect(playStoreUrl, 302);
 }
 
 export const meta = () => [
