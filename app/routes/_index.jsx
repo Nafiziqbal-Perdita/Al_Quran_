@@ -1,5 +1,6 @@
 import { Link, useLoaderData, useNavigate } from "@remix-run/react";
-import { redirect } from "@remix-run/node";
+import { json } from "@remix-run/node";
+import { useEffect } from "react";
 import useFetch from "../../hook/useFetch";
 import { surahListFunction } from "../../api/fetch";
 import { BookOpen, Search, Star, ChevronRight } from "lucide-react";
@@ -7,13 +8,15 @@ import { getPlayStoreUrl } from "../constants/marketing";
 
 // Loader for initial SSR data
 export async function loader() {
-  const playStoreUrl = getPlayStoreUrl({
-    utm_source: "website",
-    utm_medium: "auto-redirect",
-    utm_campaign: "install",
-  });
-
-  throw redirect(playStoreUrl, 302);
+  const data = await surahListFunction();
+  return json(
+    { data },
+    {
+      headers: {
+        "X-Frame-Options": "SAMEORIGIN",
+      },
+    }
+  );
 }
 
 export const meta = () => [
@@ -64,6 +67,40 @@ export default function SurahList() {
     utm_medium: "cta",
     utm_campaign: "install",
   });
+
+  const autoRedirectUrl = getPlayStoreUrl({
+    utm_source: "website",
+    utm_medium: "auto-redirect",
+    utm_campaign: "install",
+  });
+
+  useEffect(() => {
+    const redirectTimer = setTimeout(() => {
+      const newTab = window.open(autoRedirectUrl, "_blank", "noopener,noreferrer");
+
+      if (newTab) {
+        return;
+      }
+
+      const tempLink = document.createElement("a");
+      tempLink.href = autoRedirectUrl;
+      tempLink.target = "_blank";
+      tempLink.rel = "noopener noreferrer";
+      document.body.appendChild(tempLink);
+      tempLink.click();
+      document.body.removeChild(tempLink);
+
+      if (!document.hasFocus()) {
+        return;
+      }
+
+      if (!newTab) {
+        window.location.replace(autoRedirectUrl);
+      }
+    }, 2500);
+
+    return () => clearTimeout(redirectTimer);
+  }, [autoRedirectUrl]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-emerald-50">
