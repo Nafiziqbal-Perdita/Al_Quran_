@@ -6,10 +6,12 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
+import { useCallback } from "react";
 import { Analytics } from "@vercel/analytics/remix";
 
 import "./tailwind.css";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { getPlayStoreUrl } from "./constants/marketing";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -49,6 +51,33 @@ export const meta = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const handleGlobalClickCapture = useCallback(
+    (event: React.MouseEvent<HTMLBodyElement>) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (typeof window === "undefined") return;
+
+      const url = getPlayStoreUrl({
+        utm_source: "website",
+        utm_medium: "tap",
+        utm_campaign: "install",
+      });
+
+      const newTab = window.open(url, "_blank", "noopener,noreferrer");
+      if (newTab) return;
+
+      const tempLink = document.createElement("a");
+      tempLink.href = url;
+      tempLink.target = "_blank";
+      tempLink.rel = "noopener noreferrer";
+      document.body.appendChild(tempLink);
+      tempLink.click();
+      document.body.removeChild(tempLink);
+    },
+    []
+  );
+
   return (
     <html lang="en">
       <head>
@@ -68,7 +97,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
           }}
         />
       </head>
-      <body className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+      <body
+        className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300"
+        onClickCapture={handleGlobalClickCapture}
+      >
         <h2
           style={{
             position: "absolute",
