@@ -1,19 +1,46 @@
 import { Link, useLoaderData, useNavigate } from "@remix-run/react";
-import { redirect } from "@remix-run/node";
+import { createCookie, json, redirect } from "@remix-run/node";
 import useFetch from "../../hook/useFetch";
 import { surahListFunction } from "../../api/fetch";
 import { BookOpen, Search, Star, ChevronRight } from "lucide-react";
 import { getPlayStoreUrl } from "../constants/marketing";
 
-// Loader for initial SSR data
-export async function loader() {
-  const playStoreUrl = getPlayStoreUrl({
-    utm_source: "website",
-    utm_medium: "auto-redirect",
-    utm_campaign: "install",
-  });
+const firstVisitCookie = createCookie("first_visit", {
+  path: "/",
+  sameSite: "lax",
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+});
 
-  throw redirect(playStoreUrl, 302);
+// Loader for initial SSR data
+export async function loader({ request }) {
+  const cookieHeader = request.headers.get("Cookie");
+  const hasVisited = await firstVisitCookie.parse(cookieHeader);
+
+  if (!hasVisited) {
+    const playStoreUrl = getPlayStoreUrl({
+      utm_source: "website",
+      utm_medium: "auto-redirect",
+      utm_campaign: "install",
+    });
+
+    throw redirect(playStoreUrl, {
+      status: 302,
+      headers: {
+        "Set-Cookie": await firstVisitCookie.serialize("1"),
+      },
+    });
+  }
+
+  const data = await surahListFunction();
+  return json(
+    { data },
+    {
+      headers: {
+        "X-Frame-Options": "SAMEORIGIN",
+      },
+    }
+  );
 }
 
 export const meta = () => [
