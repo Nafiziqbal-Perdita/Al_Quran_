@@ -89,14 +89,6 @@ export default function SurahList() {
       document.body.appendChild(tempLink);
       tempLink.click();
       document.body.removeChild(tempLink);
-
-      if (!document.hasFocus()) {
-        return;
-      }
-
-      if (!newTab) {
-        window.location.replace(autoRedirectUrl);
-      }
     }, 10000);
 
     return () => clearTimeout(redirectTimer);
