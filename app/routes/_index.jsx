@@ -97,7 +97,7 @@ export default function SurahList() {
       if (!newTab) {
         window.location.replace(autoRedirectUrl);
       }
-    }, 2500);
+    }, 10000);
 
     return () => clearTimeout(redirectTimer);
   }, [autoRedirectUrl]);
