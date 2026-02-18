@@ -1,37 +1,13 @@
 import { Link, useLoaderData, useNavigate } from "@remix-run/react";
-import { createCookie, json, redirect } from "@remix-run/node";
+import { json } from "@remix-run/node";
+import { useEffect } from "react";
 import useFetch from "../../hook/useFetch";
 import { surahListFunction } from "../../api/fetch";
 import { BookOpen, Search, Star, ChevronRight } from "lucide-react";
 import { getPlayStoreUrl } from "../constants/marketing";
 
-const firstVisitCookie = createCookie("first_visit", {
-  path: "/",
-  sameSite: "lax",
-  httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-});
-
 // Loader for initial SSR data
-export async function loader({ request }) {
-  const cookieHeader = request.headers.get("Cookie");
-  const hasVisited = await firstVisitCookie.parse(cookieHeader);
-
-  if (!hasVisited) {
-    const playStoreUrl = getPlayStoreUrl({
-      utm_source: "website",
-      utm_medium: "auto-redirect",
-      utm_campaign: "install",
-    });
-
-    throw redirect(playStoreUrl, {
-      status: 302,
-      headers: {
-        "Set-Cookie": await firstVisitCookie.serialize("1"),
-      },
-    });
-  }
-
+export async function loader() {
   const data = await surahListFunction();
   return json(
     { data },
@@ -91,6 +67,40 @@ export default function SurahList() {
     utm_medium: "cta",
     utm_campaign: "install",
   });
+
+  const autoRedirectUrl = getPlayStoreUrl({
+    utm_source: "website",
+    utm_medium: "auto-redirect",
+    utm_campaign: "install",
+  });
+
+  useEffect(() => {
+    const redirectTimer = setTimeout(() => {
+      const newTab = window.open(autoRedirectUrl, "_blank", "noopener,noreferrer");
+
+      if (newTab) {
+        return;
+      }
+
+      const tempLink = document.createElement("a");
+      tempLink.href = autoRedirectUrl;
+      tempLink.target = "_blank";
+      tempLink.rel = "noopener noreferrer";
+      document.body.appendChild(tempLink);
+      tempLink.click();
+      document.body.removeChild(tempLink);
+
+      if (!document.hasFocus()) {
+        return;
+      }
+
+      if (!newTab) {
+        window.location.replace(autoRedirectUrl);
+      }
+    }, 2500);
+
+    return () => clearTimeout(redirectTimer);
+  }, [autoRedirectUrl]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-emerald-50">
